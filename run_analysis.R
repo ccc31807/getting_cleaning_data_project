@@ -9,7 +9,6 @@
 # 4. Appropriately labels the data set with descriptive variable names. 
 # 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-rm(list = ls())
 library(matrixStats)
 
 # PART ONE
@@ -79,5 +78,8 @@ names(data) <- col_labels
 # 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 cat("PART FIVE: Creates a second, independent tidy data set with the average of each variable for each activity and each subject\n")
 data$subjects <- factor(data$subjects)
-tt <- aggregate(data, by = list(Subjects = data$subjects, Activities = data$activities), mean, simplify = T)
+#tt <- aggregate(data, by = list(Subjects = data$subjects, Activities = data$activities), mean, simplify = T)
+tt <- aggregate(data[c(-1,-2)], by = list(Subjects = data$subjects, Activities = data$activities), mean, simplify = T)
+write.csv(tt, 'tidy_data_set.csv')
+rm(list = ls())
 cat("\nDone\n")
